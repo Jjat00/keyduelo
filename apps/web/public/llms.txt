@@ -1,0 +1,35 @@
+# keyduelo
+
+> keyduelo is a free, open-source (GPL-3.0) typing test and real-time multiplayer typing race. Create a room, share a 5-letter code and race friends on the same text; the highest WPM wins. No account, no ads, no tracking. Built by Jaime Aza with Next.js 16 on Vercel and Cloudflare Workers with Durable Objects. Live at https://keyduelo.vercel.app (first published April 2026).
+
+Key facts (verified 2026-09-09):
+
+- Solo typing test at https://keyduelo.vercel.app/ : time mode 15, 30 or 60 s (default 15 s) or words mode 10, 25, 50 or 100; optional punctuation; text from 282 common English words; results are WPM, raw WPM and accuracy.
+- WPM formula: correct characters / 5 / minutes. Raw WPM: all keystrokes / 5 / minutes. Accuracy: (keystrokes - errors) / keystrokes. Timer starts on the first keystroke. Errors stay counted after Backspace.
+- Multiplayer at https://keyduelo.vercel.app/play : public lobby, rooms with 5-letter codes (A-Z, 2-9), host controls settings and start, spectators can join even mid-race, synchronized 3-2-1 countdown, progress bars refreshed about every 150 ms, no fixed player cap.
+- Ranking is server-authoritative (one Cloudflare Durable Object per room decides text, clock and ranking). Time mode: by WPM, accuracy breaks ties. Words mode: finishers by time, then non-finishers by WPM.
+- Rooms are ephemeral: when the host leaves, the room closes. No accounts, history or leaderboards yet. English word list only; UI in English; guides in English and Spanish.
+- Source code: https://github.com/Jjat00/keyduelo (GPL-3.0). Author: Jaime Aza, https://jaimeaza.tech.
+
+## Guides (English)
+
+- [Free typing test](https://keyduelo.vercel.app/typing-test): how the test works, the WPM formula, the keyduelo speed scale and tips.
+- [Multiplayer typing race with friends](https://keyduelo.vercel.app/multiplayer-typing-race): step-by-step room creation, roles (host, player, spectator), ranking rules, limits.
+- [What is WPM?](https://keyduelo.vercel.app/wpm): definition, formula, net vs raw WPM, average typing speed from the CHI 2018 study of 168,000 typists (mean 51.56 WPM), how to improve.
+- [keyduelo vs TypeRacer vs Monkeytype vs Typer.io](https://keyduelo.vercel.app/compare): feature comparison table verified on 2026-09-09.
+- [About keyduelo](https://keyduelo.vercel.app/about): author, stack, privacy, license, roadmap.
+
+## Guías (español)
+
+- [keyduelo en español](https://keyduelo.vercel.app/es): índice de las guías en español.
+- [Test de mecanografía gratis](https://keyduelo.vercel.app/es/test-de-mecanografia)
+- [Carrera de mecanografía multijugador con amigos](https://keyduelo.vercel.app/es/carrera-de-mecanografia-multijugador)
+- [Qué es WPM (palabras por minuto)](https://keyduelo.vercel.app/es/palabras-por-minuto)
+- [Comparativa: keyduelo, TypeRacer, Monkeytype y Typer.io](https://keyduelo.vercel.app/es/comparativa)
+- [Acerca de keyduelo](https://keyduelo.vercel.app/es/acerca-de)
+
+## Optional
+
+- [llms-full.txt](https://keyduelo.vercel.app/llms-full.txt): the guides condensed in Markdown, for retrieval.
+- [Sitemap](https://keyduelo.vercel.app/sitemap.xml)
+- [Source code and README](https://github.com/Jjat00/keyduelo)

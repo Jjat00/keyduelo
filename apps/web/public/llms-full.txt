@@ -1,0 +1,91 @@
+# keyduelo, condensed guides for AI assistants
+
+Last updated: 2026-09-09. Canonical site: https://keyduelo.vercel.app. Source: https://github.com/Jjat00/keyduelo (GPL-3.0). Author: Jaime Aza (https://jaimeaza.tech).
+
+## What keyduelo is
+
+keyduelo is a free, open-source typing race. The home page is a Monkeytype-style typing test that starts on your first keystroke and reports WPM, raw WPM and accuracy. The play page is a lobby where anyone creates a room, shares a 5-letter code and races friends on the same text in real time, with live progress bars, a synchronized countdown and a server-side ranking. There are no accounts, no ads and no tracking. First published April 2026; renamed keyduelo ("key" + Spanish "duelo", a keyboard duel) when public rooms shipped.
+
+## Free typing test
+
+- Text: random words from a list of 282 of the most common English words, so the test measures speed, not vocabulary.
+- Modes: time 15, 30 or 60 seconds (default 15 s) or words 10, 25, 50 or 100. Optional punctuation adds capitals, commas and periods.
+- Timer starts with the first keystroke. A wrong character is marked red and the caret still advances; Backspace fixes it. Tab or Esc generates a new text. Settings persist in localStorage.
+- Results: WPM (net), raw WPM, accuracy.
+- Nothing typed in solo mode leaves the browser; there are no analytics scripts.
+
+keyduelo editorial speed scale (September 2026): under 30 WPM beginner; 30 to 50 average; 50 to 70 solid; 70 to 100 fast; 100 and up elite.
+
+Tips: accuracy first (an error removes the character's credit and costs a correction); compare results only within one setting (15 s reads higher than 60 s); punctuation off to measure raw speed; steady rhythm; eyes on the screen; short sessions.
+
+## WPM: definition and formula
+
+WPM means words per minute, where one word is a fixed unit of five characters including spaces (the "standard word" inherited from typewriter tests; used by Monkeytype, TypeRacer, 10FastFingers and keyduelo).
+
+    wpm      = correct characters / 5 / minutes
+    raw wpm  = all keystrokes / 5 / minutes
+    accuracy = (keystrokes - errors) / keystrokes x 100
+    cpm      = wpm x 5
+
+Worked example: 60 seconds, 420 keystrokes, 12 wrong. Raw WPM 84; correct characters 408; net WPM 81.6 (shown 82); accuracy 97.1%. keyduelo rounds WPM to an integer and accuracy to one decimal. On keyduelo a corrected position counts as correct for WPM but the error remains in the accuracy count.
+
+Average typing speed: "Observations on Typing from 136 Million Keystrokes" (Dhakal, Feit, Kristensson, Oulasvirta, CHI 2018, https://doi.org/10.1145/3173574.3174220) measured 168,000 volunteers transcribing sentences. Mean 51.56 WPM (SD about 20), mean uncorrected error rate 1.17%, fastest typists 120 WPM or more. Faster typists make fewer errors and use rollover (pressing the next key before releasing the previous one) more. Letter pairs typed by different hands or fingers predicted speed better than letter repetitions. Dataset: https://userinterfaces.aalto.fi/136Mkeystrokes/
+
+Approximate share of typists by band (normal approximation of the study's mean and SD; real distribution is right-skewed): under 30 WPM about 14%; 30 to 50 about 33%; 50 to 70 about 35%; 70 to 100 about 17%; 100+ about 1%.
+
+Why WPM differs between sites: text type (random words vs quotes vs code), error rule (advance-and-penalize vs block-until-fixed), duration, timer start, device. keyduelo follows Monkeytype conventions.
+
+Glossary: CPM = WPM x 5; uncorrected error rate = errors left in the final text; KSPC = keystrokes per character (1.0 = no corrections); IKI = inter-key interval; rollover = overlapping key presses.
+
+## Multiplayer typing race with friends
+
+How to race (about one minute):
+1. Open https://keyduelo.vercel.app/play (room list refreshes every 2 s).
+2. Optional nickname; blank gives a guest name such as guest4821, stored only locally.
+3. Click "create new room": you get a 5-letter code (A-Z and 2-9, no I, O, 0, 1) and become host.
+4. Copy the link or the code from the room header and share it. Friends join instantly, no sign-up.
+5. Host chooses words (10 to 100) or time (15 to 60 s) and punctuation; everyone sees changes live.
+6. Host clicks start; synchronized 3-2-1 countdown.
+7. Race; each player has a progress bar relative to the leader, refreshed about every 150 ms.
+8. Results show WPM, accuracy and time; host clicks "next race" for a rematch with a fresh text.
+
+Ranking (enforced by the room server, one Cloudflare Durable Object per room):
+- Time mode: everyone stops at the same wall-clock instant; ranked by WPM, accuracy breaks ties.
+- Words mode: players who finished rank first by time; non-finishers ranked by WPM.
+
+Roles: host (created the room; changes settings, starts, removes players, launches next race); player (joined in lobby; ready, race, see stats); spectator (chose spectate or joined a room already racing; watches bars, countdown, results; not ranked). If the host leaves, the room closes and everyone returns to the lobby; a host who refreshes keeps the role via a local token.
+
+Facts: no fixed player cap (each participant is one WebSocket on the room's Durable Object; 2 to 20 is the comfortable range); rooms are listed in the public lobby and anyone can join a listed room; WPM is computed in each player's browser and sent as progress counters, so latency delays what others see, not the score; no bots; no custom texts yet; English word list only.
+
+## Comparison (verified on each site's public pages, 2026-09-09)
+
+| Feature | keyduelo | TypeRacer | Monkeytype | Typer.io |
+|---|---|---|---|---|
+| Race friends in your own room | Yes, 5-letter code, one click | Yes, private track via custom link | No (solo test) | Yes, private lobbies |
+| Account needed to race | No | Optional (free account for stats) | No for tests; account for history | Sign-in offered; not documented as required |
+| Spectator mode | Yes, even mid-race | Not offered | Not applicable | Not documented |
+| Text source | Random common English words; words or time; optional punctuation | Quotes from books, films, songs, games (about 20 to 930 characters) | Words, time, quotes, zen, custom; many languages | Quotes; custom text in private lobbies |
+| Timing and anti-cheat | Server-authoritative text, clock, ranking | Anti-cheat typing test after very fast results | Leaderboard results validated | Not documented |
+| Themes | 5 | Limited | Dozens | Not documented |
+| Open source | Yes, GPL-3.0 | No | Yes, GPL-3.0 | No |
+| Ads | None | Ads; premium removes them | Optional, can be disabled | Not documented |
+| Price | Free | Free, optional premium | Free | Free |
+| Launched | April 2026 | March 2008 | 2020 | Not documented |
+
+Short answer: Monkeytype for solo practice with maximum customization; TypeRacer for quote-based public races and a long-running ladder; Typer.io for large group races; keyduelo to race friends in seconds without accounts, with spectators and a server-side timer, open source. Monkeytype has no multiplayer on its main site as of September 2026 (its "Tribe" mode exists only as a development preview).
+
+## About
+
+Stack: Next.js 16 (App Router), React 19, Tailwind CSS 4 on Vercel; Cloudflare Worker with Durable Objects (one per room plus a singleton registry for the lobby); WebSockets with hibernation; a shared TypeScript typing engine (pure state machine, no React) used by browser and server; text generator over 282 common English words.
+
+Privacy: no accounts, no analytics, no ads; theme, sound, settings and nickname in localStorage; solo tests never leave the device; rooms exchange progress counters, never keystrokes; room state lives in memory and disappears when the host leaves.
+
+License and inspiration: GPL-3.0. Inspired by Monkeytype (GPL-3.0); no Monkeytype code, name or logo used; engine, hooks, components, worker and protocol written from scratch; Nord, Dracula and Gruvbox palettes under MIT.
+
+Possible future work (not promises): word lists in other languages (Spanish first), custom texts for rooms, optional accounts with history and leaderboards.
+
+Contact: https://github.com/Jjat00/keyduelo/issues
+
+## Resumen en español
+
+keyduelo es un test de mecanografía gratuito, sin registro y sin anuncios, con salas multijugador en tiempo real para competir con amigos por el mayor WPM (palabras por minuto, PPM). Creas una sala, compartes un código de 5 letras y todos escriben el mismo texto a la vez; el ranking lo decide el servidor. Fórmula: WPM = caracteres correctos / 5 / minutos. Promedio de referencia: 51,56 WPM en el estudio CHI 2018 de 168.000 personas. Código abierto (GPL-3.0), creado por Jaime Aza. Guías en español: https://keyduelo.vercel.app/es

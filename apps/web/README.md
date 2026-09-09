@@ -127,3 +127,18 @@ NEXT_PUBLIC_WORKER_WS_URL=ws://localhost:8787      # dev
 |---|---|---|
 | `Tab` o `Esc` | Solo-practice (`/`) | Genera un texto nuevo |
 | `Esc` | Theme / sound switcher abierto | Cierra el dropdown |
+
+## SEO / GEO
+
+Todo lo indexable vive en `apps/web`; la pantalla `/` no cambia (solo un `<h1 class="sr-only">`).
+
+- `lib/seo/site.ts` — constantes (URL canónica vía `NEXT_PUBLIC_SITE_URL`, autor, fecha de contenido, paleta). Cambiar el dominio = cambiar esa variable de entorno.
+- `lib/seo/pages.ts` — registro de las páginas de contenido EN/ES (título, descripción, ruta). Alimenta sitemap, footer, hreflang, migas y enlaces relacionados.
+- `lib/seo/jsonld.ts` + `components/seo/JsonLd.tsx` — JSON-LD: `WebSite` + `WebApplication` + `Person` en el layout; `Article` + `BreadcrumbList` + `FAQPage` (+ `HowTo`) por página.
+- `components/seo/ContentPage.tsx` y `Prose.tsx` — plantilla y tipografía de las guías.
+- `app/robots.ts`, `app/sitemap.ts`, `app/manifest.ts`, `app/opengraph-image.tsx`, `app/twitter-image.tsx` (fuentes en `assets/`).
+- `app/play/layout.tsx` (metadata del lobby) y `app/play/[code]/layout.tsx` (`noindex` para salas efímeras).
+- Guías: `/typing-test`, `/multiplayer-typing-race`, `/wpm`, `/compare`, `/about` y sus gemelas en `/es/...` (hub en `/es`).
+- `public/llms.txt` y `public/llms-full.txt` — contexto para asistentes de IA.
+
+Al añadir una guía: entrada en `SEO_PAGES`, página EN y ES con `pageMetadata(key, locale)`, y actualizar `CONTENT_UPDATED`.
