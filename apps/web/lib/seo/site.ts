@@ -45,13 +45,14 @@ export function absoluteUrl(path: string): string {
 export const OG_IMAGE_ALT = 'keyduelo: free multiplayer typing race and WPM typing test';
 
 /**
- * Explicit social image descriptor. Next injects the file-based
- * `opengraph-image.tsx` only into segments that do NOT declare their own
- * `openGraph`; every page that sets openGraph/twitter must list this image
- * itself or it ships without og:image (learned the hard way on Constela).
+ * The social card lives in public/ (not as an app/opengraph-image file) so
+ * every route, the home included, declares it explicitly with its alt text.
+ * A file-based image in a segment overrides `openGraph.images` there and is
+ * NOT inherited by child segments that declare their own openGraph, which
+ * made the tags inconsistent (learned the hard way on Constela).
  */
 export const OG_IMAGE = {
-  url: '/opengraph-image',
+  url: '/opengraph-image.png',
   width: 1200,
   height: 630,
   alt: OG_IMAGE_ALT,

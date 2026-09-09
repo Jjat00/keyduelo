@@ -8,6 +8,7 @@ import { siteGraph } from "@/lib/seo/jsonld";
 import {
   AUTHOR,
   BRAND,
+  OG_IMAGE,
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_TITLE,
@@ -82,11 +83,13 @@ export const metadata: Metadata = {
     url: "/",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
+    images: [OG_IMAGE],
   },
   manifest: "/manifest.webmanifest",
 };

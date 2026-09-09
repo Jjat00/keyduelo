@@ -75,7 +75,8 @@ export function siteGraph() {
           'No account, no ads, no tracking',
           '5 color themes and optional key sounds',
         ],
-        screenshot: absoluteUrl('/opengraph-image'),
+        screenshot: absoluteUrl('/opengraph-image.png'),
+        image: absoluteUrl('/icon.png'),
       },
       personSchema(),
     ],
@@ -104,7 +105,7 @@ export function articleSchema(a: ArticleInput) {
     publisher: { '@id': IDS.author },
     isPartOf: { '@id': IDS.website },
     about: { '@id': IDS.app },
-    image: absoluteUrl('/opengraph-image'),
+    image: absoluteUrl('/opengraph-image.png'),
   };
 }
 

@@ -136,7 +136,7 @@ Todo lo indexable vive en `apps/web`; la pantalla `/` no cambia (solo un `<h1 cl
 - `lib/seo/pages.ts` — registro de las páginas de contenido EN/ES (título, descripción, ruta). Alimenta sitemap, footer, hreflang, migas y enlaces relacionados.
 - `lib/seo/jsonld.ts` + `components/seo/JsonLd.tsx` — JSON-LD: `WebSite` + `WebApplication` + `Person` en el layout; `Article` + `BreadcrumbList` + `FAQPage` (+ `HowTo`) por página.
 - `components/seo/ContentPage.tsx` y `Prose.tsx` — plantilla y tipografía de las guías.
-- `app/robots.ts`, `app/sitemap.ts`, `app/manifest.ts`, `app/opengraph-image.tsx`, `app/twitter-image.tsx` (fuentes en `assets/`).
+- `app/robots.ts`, `app/sitemap.ts`, `app/manifest.ts`. Imagen social (`public/opengraph-image.png`, declarada en `OG_IMAGE`), favicon (`app/favicon.ico`, `icon.png`) y `apple-icon.png` salen del logo de marca: `python3 scripts/og-image.py` los regenera desde `assets/keyduelo-logo.png` con las fuentes Geist Mono de `assets/` (necesita Pillow).
 - `app/play/layout.tsx` (metadata del lobby) y `app/play/[code]/layout.tsx` (`noindex` para salas efímeras).
 - Guías: `/typing-test`, `/multiplayer-typing-race`, `/wpm`, `/compare`, `/about` y sus gemelas en `/es/...` (hub en `/es`).
 - `public/llms.txt` y `public/llms-full.txt` — contexto para asistentes de IA.
