@@ -1,3 +1,7 @@
+import Link from 'next/link';
+import { ES_HUB, SEO_PAGES } from '@/lib/seo/pages';
+import { REPO_URL } from '@/lib/seo/site';
+
 /**
  * Global footer rendered by the root layout. Sits under the page content
  * (not fixed) so it doesn't overlap the typing area or header dropdowns.
@@ -5,6 +9,11 @@
  * Kept server-side (no 'use client') — it's static content and having it
  * render on the server avoids any hydration work for a component that
  * never changes.
+ *
+ * The guide links come from the SEO page registry: they are the internal
+ * links that let crawlers reach the content pages from every screen. Same
+ * row, same size and color as the brand/github items so the footer keeps
+ * its single-line footprint on desktop.
  */
 export function Footer() {
   return (
@@ -14,9 +23,9 @@ export function Footer() {
           <span className="text-text">key</span>
           <span className="text-main">duelo</span>
         </span>
-        <span aria-hidden="true" className="text-sub/50">•</span>
+        <Dot />
         <a
-          href="https://github.com/Jjat00/keyduelo"
+          href={REPO_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 transition-colors hover:text-text"
@@ -24,8 +33,30 @@ export function Footer() {
           <GitHubMark />
           <span>github</span>
         </a>
+        <nav aria-label="Guides" className="contents">
+          {SEO_PAGES.map((page) => (
+            <span key={page.key} className="contents">
+              <Dot />
+              <Link href={page.en.path} className="transition-colors hover:text-text">
+                {page.en.label}
+              </Link>
+            </span>
+          ))}
+          <Dot />
+          <Link href={ES_HUB.path} hrefLang="es" lang="es" className="transition-colors hover:text-text">
+            {ES_HUB.label}
+          </Link>
+        </nav>
       </div>
     </footer>
+  );
+}
+
+function Dot() {
+  return (
+    <span aria-hidden="true" className="text-sub/50">
+      •
+    </span>
   );
 }
 

@@ -53,6 +53,7 @@ export default function Home() {
   if (text === null) {
     return (
       <main className="flex flex-1 items-center justify-center text-sub font-mono">
+        <h1 className="sr-only">keyduelo: free typing test and multiplayer typing race</h1>
         loading…
       </main>
     );
@@ -83,6 +84,7 @@ function Race({
 
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-10 px-6 py-10">
+      <h1 className="sr-only">keyduelo: free typing test and multiplayer typing race</h1>
       {state.finishedAt !== null ? (
         <Results
           wpm={metrics.wpm}
