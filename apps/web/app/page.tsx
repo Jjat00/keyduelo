@@ -112,7 +112,7 @@ function Race({
         <p>press <Kbd>tab</Kbd> or <Kbd>esc</Kbd> for a new text</p>
         <Link
           href="/play"
-          className="text-sub underline-offset-4 hover:text-main hover:underline"
+          className="rounded bg-main px-5 py-2 font-semibold text-bg transition-[filter,transform] hover:brightness-110 active:scale-[0.98]"
         >
           play with friends →
         </Link>
