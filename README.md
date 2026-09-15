@@ -43,7 +43,7 @@
 ### UI / UX
 - 📊 **Métricas estilo Monkeytype** — WPM (palabras por minuto), raw WPM, accuracy, tiempo total, ranking final.
 - 🎨 **5 temas** — dracula (default), warm-dark, warm-light, nord, gruvbox-dark. Cambio en vivo + persistencia local.
-- 🔊 **Sonidos de teclas opcionales** — 3 sintetizados con Web Audio API (click/mech/pop, sin descargas) + **7 perfiles de switches reales** (KAT, Cherry, MT3, XDA, OEM, SA, DSA) tomados de [kliq](https://github.com/crafter-station/kliq) (MIT). Cada perfil es un audio sprite que se descarga on-demand (~200 KB) y reproduce el sample de press y release de cada tecla, con pitch aleatorio por keystroke y paneo estéreo según la posición de la tecla. Errores suenan con pitch más bajo para feedback audible.
+- 🔊 **Sonidos de teclas** — **7 perfiles de switches reales** (KAT, Cherry, MT3, XDA, OEM, SA, DSA) tomados de [kliq](https://github.com/crafter-station/kliq) (MIT), con **OEM por defecto**; más 3 sintetizados con Web Audio API (click/mech/pop, sin descargas) como alternativa liviana, y `off` para silenciar. Cada perfil es un audio sprite que se descarga on-demand (~200 KB) y reproduce el sample de press y release de cada tecla, con pitch aleatorio por keystroke y paneo estéreo según la posición de la tecla. Errores suenan con pitch más bajo para feedback audible.
 - 📜 **Texto que scrollea** — el caret se ancla en la segunda línea del viewport y el texto fluye estilo Monkeytype, con fade en bordes.
 - ✨ **Transiciones suaves** — fade entre lobby ↔ countdown ↔ race ↔ results.
 - ♻️ **Estado autoritativo en el server** — el texto, el reloj y el ranking los decide el Durable Object, no el cliente. Imposible hacer trampa cambiando el reloj local.

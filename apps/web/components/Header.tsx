@@ -100,26 +100,17 @@ function SoundSwitcher() {
           role="listbox"
           className="absolute right-0 top-full mt-2 w-44 overflow-hidden rounded bg-sub-alt py-1 shadow-lg ring-1 ring-black/20"
         >
-          {SYNTH_SOUND_TYPES.map((name: SoundType) => (
-            <SoundOption
-              key={name}
-              name={name}
-              selected={name === sound}
-              onSelect={() => {
-                setSound(name);
-                setOpen(false);
-              }}
-            />
-          ))}
+          <SoundOption
+            name="off"
+            selected={sound === 'off'}
+            onSelect={() => {
+              setSound('off');
+              setOpen(false);
+            }}
+          />
 
-          {/* Recorded switch sets. Hovering starts the download so picking one
-              is already audible on the first keystroke. */}
-          <li
-            aria-hidden="true"
-            className="mt-1 border-t border-bg/60 px-3 pb-1 pt-2 text-[10px] uppercase tracking-widest text-sub"
-          >
-            mechanical
-          </li>
+          {/* Recorded switch sets — the main option. Hovering starts the
+              download so picking one is already audible on the first key. */}
           {KLIQ_SOUND_TYPES.map((name: SoundType) => (
             <SoundOption
               key={name}
@@ -132,6 +123,26 @@ function SoundSwitcher() {
               }}
             />
           ))}
+
+          {/* Synthesized fallbacks, last: nothing to download. */}
+          <li
+            aria-hidden="true"
+            className="mt-1 border-t border-bg/60 px-3 pb-1 pt-2 text-[10px] uppercase tracking-widest text-sub"
+          >
+            synth
+          </li>
+          {SYNTH_SOUND_TYPES.map((name: SoundType) => (
+            <SoundOption
+              key={name}
+              name={name}
+              selected={name === sound}
+              onSelect={() => {
+                setSound(name);
+                setOpen(false);
+              }}
+            />
+          ))}
+
         </ul>
       )}
     </div>

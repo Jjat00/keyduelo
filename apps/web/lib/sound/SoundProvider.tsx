@@ -52,7 +52,17 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     const stored = getStoredSound();
     soundRef.current = stored;
     setSoundState(stored);
-    if (isKliqSound(stored)) preloadKliqSet(stored);
+    if (!isKliqSound(stored)) return;
+    // A recorded set is ~200-370 KB, and the default one is now fetched on
+    // every first visit. Wait for the browser to go idle so it never competes
+    // with the first paint; typing starts well after that.
+    const idle =
+      window.requestIdleCallback ?? ((fn: () => void) => window.setTimeout(fn, 1200));
+    const id = idle(() => preloadKliqSet(stored));
+    return () => {
+      if (window.cancelIdleCallback) window.cancelIdleCallback(id as number);
+      else window.clearTimeout(id as number);
+    };
   }, []);
 
   const preload = useCallback((next: SoundType): void => {

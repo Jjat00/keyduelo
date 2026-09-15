@@ -23,7 +23,12 @@ export type KliqSoundType =
 
 export type SoundType = SynthSoundType | KliqSoundType;
 
-export const SYNTH_SOUND_TYPES: SynthSoundType[] = ['off', 'click', 'mech', 'pop'];
+/**
+ * The synthesized fallbacks, listed after the recorded sets: they're the
+ * zero-download option, not the default experience. `off` is a control rather
+ * than a sound, so it isn't part of this list — the switcher shows it first.
+ */
+export const SYNTH_SOUND_TYPES: SynthSoundType[] = ['click', 'mech', 'pop'];
 
 /** Kliq's own product display order — keep it, the sets are ordered by feel. */
 export const KLIQ_SOUND_TYPES: KliqSoundType[] = [
@@ -36,12 +41,20 @@ export const KLIQ_SOUND_TYPES: KliqSoundType[] = [
   'dsa',
 ];
 
+/** Every selectable value, in switcher order. Also the storage allowlist. */
 export const SOUND_TYPES: SoundType[] = [
-  ...SYNTH_SOUND_TYPES,
+  'off',
   ...KLIQ_SOUND_TYPES,
+  ...SYNTH_SOUND_TYPES,
 ];
 
-export const DEFAULT_SOUND: SoundType = 'off';
+/**
+ * A recorded set is the default: the sampled switches are the main
+ * experience now, and OEM is the most familiar-sounding of the seven.
+ * Anyone who picked something else (including `off`) keeps their choice —
+ * this only applies to visitors with nothing in localStorage.
+ */
+export const DEFAULT_SOUND: SoundType = 'oem';
 
 export function isKliqSound(type: SoundType): type is KliqSoundType {
   return (KLIQ_SOUND_TYPES as string[]).includes(type);

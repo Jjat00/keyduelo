@@ -29,7 +29,7 @@ lib/
     storage.ts          # localStorage con validación field-by-field
     SettingsProvider.tsx # Context + useSettings hook (solo-practice)
   sound/
-    types.ts            # SoundType: synth ('off'|'click'|'mech'|'pop') + kliq (kat|cherry|mt3|xda|oem|sa|dsa)
+    types.ts            # SoundType: kliq (kat|cherry|mt3|xda|oem|sa|dsa, default oem) + synth ('off'|'click'|'mech'|'pop')
     storage.ts          # localStorage
     context.ts          # AudioContext singleton compartido por synth y kliq
     synth.ts            # Web Audio API: synths sin samples
@@ -111,8 +111,7 @@ NEXT_PUBLIC_WORKER_WS_URL=ws://localhost:8787      # dev
 ### Theme y audio
 
 - **Theme system con 5 paletas** (`lib/theme/`): cambia las CSS custom properties del `<html>` en runtime; las utilidades Tailwind (`bg-bg`, `text-main`, etc.) se actualizan en vivo gracias al `@theme inline` de `globals.css`. El `noFlashScript` inline en `<head>` aplica el tema guardado antes de hidratar para evitar FOUT. Default theme: **dracula**. `nord`/`dracula`/`gruvbox` provienen de proyectos open-source independientes (atribuidos en el [LICENSE](../../LICENSE)); `warm-dark`/`warm-light` están inspirados en el tema `serika` de Monkeytype.
-- **Sonido de teclas** (`lib/sound/`): dos familias detrás de un mismo `SoundType`.
-  - *Synth* (`click`/`mech`/`pop`) en `synth.ts`: osciladores y buffers de ruido, sin audio files ni descargas.
+- **Sonido de teclas** (`lib/sound/`): dos familias detrás de un mismo `SoundType`. El default es `oem`; quien ya haya elegido otra opción (incluido `off`) conserva la suya, porque el default sólo aplica cuando no hay nada en `localStorage`.
   - *Kliq* (`kat`/`cherry`/`mt3`/`xda`/`oem`/`sa`/`dsa`) en `kliq.ts`: los 7 perfiles de switches grabados de [kliq](https://github.com/crafter-station/kliq) (MIT, ver `public/sounds/ATTRIBUTION.md`). Cada set es un **audio sprite** — un `.wav` de 24 kHz mono con los samples de press y release de las 26 letras, espacio, Enter y Backspace concatenados — más `sprites.json`, que mapea `set → tecla → stroke → [offset, duración]` en segundos. Reproducir una tecla es un `start(0, offset, dur)` sobre un buffer ya decodificado: una sola descarga por set (~170-370 KB), cero trabajo de red por keystroke. Se le aplica un wobble de pitch aleatorio (±3%) y paneo estéreo según la posición de la tecla en su fila, igual que la app original. Los sets se descargan lazy: al elegirlos y al hacer hover en el switcher.
 
   `AudioContext` singleton (`context.ts`) inicializado lazy en el primer keystroke (browsers bloquean Audio antes de un user gesture). El `useTypingEngine` invoca `onKeystroke(correct, key)` — incluido Backspace — y el provider reproduce el press; el release (`keyup`) lo maneja el propio `SoundProvider` con un listener global que sólo suena para teclas cuyo press ya anunció. Un keystroke incorrecto baja el pitch (`playbackRate` en los sets grabados, frecuencia en los synths).
