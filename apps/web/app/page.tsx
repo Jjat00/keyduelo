@@ -79,7 +79,7 @@ function Race({
   const { state, metrics, isActive } = useTypingEngine({
     text,
     timeLimitSeconds: settings.mode === 'time' ? settings.timeSeconds : undefined,
-    onKeystroke: (correct) => playKey(!correct),
+    onKeystroke: (correct, key) => playKey(!correct, key),
   });
 
   return (

@@ -295,7 +295,7 @@ function RaceView({
     text,
     onProgress,
     onFinish,
-    onKeystroke: (correct) => playKey(!correct),
+    onKeystroke: (correct, key) => playKey(!correct, key),
   });
 
   const isTimeMode = config.mode === 'time';

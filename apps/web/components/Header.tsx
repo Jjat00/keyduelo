@@ -4,7 +4,13 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { useSound } from '@/lib/sound/SoundProvider';
-import { SOUND_TYPES, soundLabel, type SoundType } from '@/lib/sound/types';
+import {
+  KLIQ_SOUND_TYPES,
+  SYNTH_SOUND_TYPES,
+  isKliqSound,
+  soundLabel,
+  type SoundType,
+} from '@/lib/sound/types';
 import { useTheme } from '@/lib/theme/ThemeProvider';
 import { THEMES, THEME_NAMES, themeLabel, type ThemeName } from '@/lib/theme/themes';
 
@@ -52,7 +58,7 @@ function NavLink({ href, label }: { href: string; label: string }) {
 }
 
 function SoundSwitcher() {
-  const { sound, setSound } = useSound();
+  const { sound, setSound, preload } = useSound();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -74,7 +80,7 @@ function SoundSwitcher() {
     };
   }, [open]);
 
-  const icon = sound === 'off' ? '🔇' : '🔊';
+  const icon = soundIcon(sound);
 
   return (
     <div ref={ref} className="relative">
@@ -92,33 +98,79 @@ function SoundSwitcher() {
       {open && (
         <ul
           role="listbox"
-          className="absolute right-0 top-full mt-2 w-40 overflow-hidden rounded bg-sub-alt py-1 shadow-lg ring-1 ring-black/20"
+          className="absolute right-0 top-full mt-2 w-44 overflow-hidden rounded bg-sub-alt py-1 shadow-lg ring-1 ring-black/20"
         >
-          {SOUND_TYPES.map((name: SoundType) => {
-            const selected = name === sound;
-            return (
-              <li key={name}>
-                <button
-                  type="button"
-                  role="option"
-                  aria-selected={selected}
-                  onClick={() => {
-                    setSound(name);
-                    setOpen(false);
-                  }}
-                  className={`flex w-full items-center gap-3 px-3 py-2 text-left transition-colors ${
-                    selected ? 'text-main' : 'text-text hover:bg-bg/40'
-                  }`}
-                >
-                  <span aria-hidden="true">{name === 'off' ? '🔇' : '🔊'}</span>
-                  <span>{name}</span>
-                </button>
-              </li>
-            );
-          })}
+          {SYNTH_SOUND_TYPES.map((name: SoundType) => (
+            <SoundOption
+              key={name}
+              name={name}
+              selected={name === sound}
+              onSelect={() => {
+                setSound(name);
+                setOpen(false);
+              }}
+            />
+          ))}
+
+          {/* Recorded switch sets. Hovering starts the download so picking one
+              is already audible on the first keystroke. */}
+          <li
+            aria-hidden="true"
+            className="mt-1 border-t border-bg/60 px-3 pb-1 pt-2 text-[10px] uppercase tracking-widest text-sub"
+          >
+            mechanical
+          </li>
+          {KLIQ_SOUND_TYPES.map((name: SoundType) => (
+            <SoundOption
+              key={name}
+              name={name}
+              selected={name === sound}
+              onHover={() => preload(name)}
+              onSelect={() => {
+                setSound(name);
+                setOpen(false);
+              }}
+            />
+          ))}
         </ul>
       )}
     </div>
+  );
+}
+
+function soundIcon(type: SoundType): string {
+  if (type === 'off') return '🔇';
+  return isKliqSound(type) ? '⌨' : '🔊';
+}
+
+function SoundOption({
+  name,
+  selected,
+  onSelect,
+  onHover,
+}: {
+  name: SoundType;
+  selected: boolean;
+  onSelect: () => void;
+  onHover?: () => void;
+}) {
+  return (
+    <li>
+      <button
+        type="button"
+        role="option"
+        aria-selected={selected}
+        onClick={onSelect}
+        onMouseEnter={onHover}
+        onFocus={onHover}
+        className={`flex w-full items-center gap-3 px-3 py-2 text-left transition-colors ${
+          selected ? 'text-main' : 'text-text hover:bg-bg/40'
+        }`}
+      >
+        <span aria-hidden="true">{soundIcon(name)}</span>
+        <span>{soundLabel(name)}</span>
+      </button>
+    </li>
   );
 }
 

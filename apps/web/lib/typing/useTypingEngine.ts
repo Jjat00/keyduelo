@@ -30,11 +30,13 @@ interface UseTypingEngineOptions {
    */
   timeLimitSeconds?: number;
   /**
-   * Fired on every accepted printable keystroke (NOT on backspace).
-   * `correct` reflects whether the typed character matched the expected one.
+   * Fired on every accepted keystroke, backspace included. `correct` reflects
+   * whether the typed character matched the expected one (always true for
+   * backspace, which can't be wrong). `key` is the raw `KeyboardEvent.key`,
+   * which the sampled switch sets use to pick the right recording.
    * Used by the sound module to play feedback.
    */
-  onKeystroke?: (correct: boolean) => void;
+  onKeystroke?: (correct: boolean, key: string) => void;
 }
 
 export interface ProgressSnapshot {
@@ -126,11 +128,16 @@ export function useTypingEngine({
       if (!next || next === prev) return;
 
       // Fire keystroke callback BEFORE forceRender so audio latency stays
-      // minimal. Only fires on printable keys (not backspace) — wasCorrect
-      // is read from the slot we just wrote.
-      if (onKeystroke && next.position > prev.position) {
-        const status = next.status[prev.position];
-        onKeystroke(status === 'correct');
+      // minimal. On a printable key wasCorrect is read from the slot we just
+      // wrote; a backspace that actually removed a character is reported as
+      // correct so it gets the plain press sound.
+      if (onKeystroke) {
+        if (next.position > prev.position) {
+          const status = next.status[prev.position];
+          onKeystroke(status === 'correct', event.key);
+        } else if (next.position < prev.position) {
+          onKeystroke(true, 'Backspace');
+        }
       }
 
       stateRef.current = next;

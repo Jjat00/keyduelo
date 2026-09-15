@@ -1,44 +1,24 @@
 /**
  * Synthesized typing sounds via Web Audio API. No audio files needed.
  *
- * Each sound is a short (30–60ms) burst with an exponential gain envelope
+ * Each sound is a short (30-60ms) burst with an exponential gain envelope
  * for a clean attack and decay. Errors play a lower-pitched variant so the
  * typist gets immediate audible feedback when they hit the wrong key.
  *
- * The AudioContext is created lazily on the first call (browsers require a
- * user gesture before allowing audio — keystrokes count as one) and reused
- * across calls to keep latency under 1ms per sound.
+ * The sampled switch sets live in `kliq.ts`; both share the AudioContext
+ * from `context.ts`.
  */
 
-import type { SoundType } from './types.ts';
-
-let ctx: AudioContext | null = null;
-
-function getCtx(): AudioContext | null {
-  if (typeof window === 'undefined') return null;
-  if (!ctx) {
-    const Ctor =
-      window.AudioContext ??
-      (window as unknown as { webkitAudioContext?: typeof AudioContext })
-        .webkitAudioContext;
-    if (!Ctor) return null;
-    ctx = new Ctor();
-  }
-  // Browsers may suspend the context when the tab loses focus; resume() is
-  // a no-op if it's already running.
-  if (ctx.state === 'suspended') {
-    void ctx.resume();
-  }
-  return ctx;
-}
+import { getAudioContext } from './context.ts';
+import type { SynthSoundType } from './types.ts';
 
 /**
  * Public entry point. `isError = true` shifts the chosen sound down in pitch
  * so wrong keystrokes are audibly distinct from correct ones.
  */
-export function playSound(type: SoundType, isError: boolean = false): void {
+export function playSound(type: SynthSoundType, isError: boolean = false): void {
   if (type === 'off') return;
-  const c = getCtx();
+  const c = getAudioContext();
   if (!c) return;
   switch (type) {
     case 'click': return playClick(c, isError);
