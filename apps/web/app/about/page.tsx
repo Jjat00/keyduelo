@@ -3,7 +3,7 @@ import { ContentPage } from '@/components/seo/ContentPage';
 import { A, H2, P, Strong, Ul } from '@/components/seo/Prose';
 import type { Faq } from '@/lib/seo/jsonld';
 import { pageMetadata } from '@/lib/seo/pages';
-import { AUTHOR, REPO_URL } from '@/lib/seo/site';
+import { AUTHOR, KLIQ, REPO_URL } from '@/lib/seo/site';
 
 export const metadata: Metadata = pageMetadata('about', 'en');
 
@@ -97,6 +97,14 @@ export default function AboutPage() {
         the word list is our own selection. The Nord, Dracula and Gruvbox palettes are used under
         their MIT licenses. keyduelo itself is released under{' '}
         <A href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0</A>.
+      </P>
+      <P>
+        The keystroke sounds are not ours either. The seven switch profiles — KAT, Cherry, MT3,
+        XDA, OEM, SA and DSA — are the recordings from <A href={KLIQ.url}>kliq</A>, a free and
+        open-source mechanical keyboard sound app for macOS by Crafter Station, with sound design
+        by Cris. They are used under its MIT license from{' '}
+        <A href={KLIQ.repo}>github.com/crafter-station/kliq</A>. If you like how typing here
+        sounds, kliq gives you the same thing everywhere else on your Mac.
       </P>
 
       <H2 id="roadmap">What might come next</H2>

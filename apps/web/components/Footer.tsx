@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ES_HUB, SEO_PAGES } from '@/lib/seo/pages';
-import { REPO_URL } from '@/lib/seo/site';
+import { KLIQ, REPO_URL } from '@/lib/seo/site';
 
 /**
  * Global footer rendered by the root layout. Sits under the page content
@@ -14,6 +14,10 @@ import { REPO_URL } from '@/lib/seo/site';
  * links that let crawlers reach the content pages from every screen. Same
  * row, same size and color as the brand/github items so the footer keeps
  * its single-line footprint on desktop.
+ *
+ * The kliq credit is the attribution for the recorded switch sets the app
+ * plays (MIT). It sits here so it shows on every screen, not only the about
+ * page; the full license lives in public/sounds/ATTRIBUTION.md.
  */
 export function Footer() {
   return (
@@ -33,6 +37,18 @@ export function Footer() {
           <GitHubMark />
           <span>github</span>
         </a>
+        <Dot />
+        <span>
+          sounds by{' '}
+          <a
+            href={KLIQ.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sub underline decoration-sub/40 underline-offset-2 transition-colors hover:text-text"
+          >
+            {KLIQ.name}
+          </a>
+        </span>
         <nav aria-label="Guides" className="contents">
           {SEO_PAGES.map((page) => (
             <span key={page.key} className="contents">

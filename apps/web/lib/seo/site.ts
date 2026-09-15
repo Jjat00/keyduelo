@@ -18,6 +18,17 @@ export const SITE_DESCRIPTION =
 
 export const REPO_URL = 'https://github.com/Jjat00/keyduelo';
 
+/**
+ * Kliq — the macOS app whose seven recorded switch sets keyduelo plays on
+ * every keystroke, used under its MIT license. Credited in the footer and
+ * on the about pages; the full license is in public/sounds/ATTRIBUTION.md.
+ */
+export const KLIQ = {
+  name: 'kliq',
+  url: 'https://kliq.crafter.run/',
+  repo: 'https://github.com/crafter-station/kliq',
+} as const;
+
 export const AUTHOR = {
   name: 'Jaime Aza',
   url: 'https://jaimeaza.tech',
