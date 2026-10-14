@@ -21,7 +21,7 @@ const FAQS: Faq[] = [
   },
   {
     q: '¿Puedo hacer el test de mecanografía en español?',
-    a: 'Por ahora la lista de palabras está solo en inglés, pero el test no exige comprensión lectora: escribes lo que ves. Las guías en español están en keyduelo.vercel.app/es y las listas de palabras en otros idiomas están en estudio.',
+    a: 'Por ahora la lista de palabras está solo en inglés, pero el test no exige comprensión lectora: escribes lo que ves. Las guías en español están en keyduelo.jato.run/es y las listas de palabras en otros idiomas están en estudio.',
   },
   {
     q: '¿Funciona en el celular o la tableta?',

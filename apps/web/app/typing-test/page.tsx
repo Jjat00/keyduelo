@@ -21,7 +21,7 @@ const FAQS: Faq[] = [
   },
   {
     q: 'Can I take the typing test in Spanish?',
-    a: 'The word list is English only for now, but the test needs no reading comprehension: you type what you see. Spanish guides live at keyduelo.vercel.app/es, and word lists in other languages are under consideration.',
+    a: 'The word list is English only for now, but the test needs no reading comprehension: you type what you see. Spanish guides live at keyduelo.jato.run/es, and word lists in other languages are under consideration.',
   },
   {
     q: 'Does the typing test work on a phone or tablet?',

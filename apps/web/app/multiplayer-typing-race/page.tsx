@@ -11,7 +11,7 @@ const PAGE = getPage('race').en;
 const STEPS = [
   {
     name: 'Open the lobby',
-    text: 'Go to keyduelo.vercel.app/play. The list of active rooms refreshes every 2 seconds.',
+    text: 'Go to keyduelo.jato.run/play. The list of active rooms refreshes every 2 seconds.',
   },
   {
     name: 'Pick a nickname (optional)',

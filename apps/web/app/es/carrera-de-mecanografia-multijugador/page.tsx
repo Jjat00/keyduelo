@@ -11,7 +11,7 @@ const PAGE = getPage('race').es;
 const STEPS = [
   {
     name: 'Abre el lobby',
-    text: 'Entra en keyduelo.vercel.app/play. La lista de salas activas se actualiza cada 2 segundos.',
+    text: 'Entra en keyduelo.jato.run/play. La lista de salas activas se actualiza cada 2 segundos.',
   },
   {
     name: 'Elige un apodo (opcional)',

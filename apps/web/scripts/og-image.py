@@ -71,7 +71,7 @@ lines = [
     ("to the fastest wpm", FONT_B, 42, PURPLE, 34),
     ("free typing test · no account", FONT_R, 24, MUTED, 10),
     ("open source · GPL-3.0", FONT_R, 24, MUTED, 34),
-    ("keyduelo.vercel.app", FONT_B, 26, PURPLE, 0),
+    ("keyduelo.jato.run", FONT_B, 26, PURPLE, 0),
 ]
 fonts = [fit(t, p, s, MAX_W) for t, p, s, _, _ in lines]
 heights = [f.getbbox("Ag")[3] for f in fonts]

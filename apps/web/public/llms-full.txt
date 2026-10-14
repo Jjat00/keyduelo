@@ -1,6 +1,6 @@
 # keyduelo, condensed guides for AI assistants
 
-Last updated: 2026-09-09. Canonical site: https://keyduelo.vercel.app. Source: https://github.com/Jjat00/keyduelo (GPL-3.0). Author: Jaime Aza (https://jaimeaza.tech).
+Last updated: 2026-09-09. Canonical site: https://keyduelo.jato.run. Source: https://github.com/Jjat00/keyduelo (GPL-3.0). Author: Jaime Aza (https://jaimeaza.tech).
 
 ## What keyduelo is
 
@@ -40,7 +40,7 @@ Glossary: CPM = WPM x 5; uncorrected error rate = errors left in the final text;
 ## Multiplayer typing race with friends
 
 How to race (about one minute):
-1. Open https://keyduelo.vercel.app/play (room list refreshes every 2 s).
+1. Open https://keyduelo.jato.run/play (room list refreshes every 2 s).
 2. Optional nickname; blank gives a guest name such as guest4821, stored only locally.
 3. Click "create new room": you get a 5-letter code (A-Z and 2-9, no I, O, 0, 1) and become host.
 4. Copy the link or the code from the room header and share it. Friends join instantly, no sign-up.
@@ -88,4 +88,4 @@ Contact: https://github.com/Jjat00/keyduelo/issues
 
 ## Resumen en español
 
-keyduelo es un test de mecanografía gratuito, sin registro y sin anuncios, con salas multijugador en tiempo real para competir con amigos por el mayor WPM (palabras por minuto, PPM). Creas una sala, compartes un código de 5 letras y todos escriben el mismo texto a la vez; el ranking lo decide el servidor. Fórmula: WPM = caracteres correctos / 5 / minutos. Promedio de referencia: 51,56 WPM en el estudio CHI 2018 de 168.000 personas. Código abierto (GPL-3.0), creado por Jaime Aza. Guías en español: https://keyduelo.vercel.app/es
+keyduelo es un test de mecanografía gratuito, sin registro y sin anuncios, con salas multijugador en tiempo real para competir con amigos por el mayor WPM (palabras por minuto, PPM). Creas una sala, compartes un código de 5 letras y todos escriben el mismo texto a la vez; el ranking lo decide el servidor. Fórmula: WPM = caracteres correctos / 5 / minutos. Promedio de referencia: 51,56 WPM en el estudio CHI 2018 de 168.000 personas. Código abierto (GPL-3.0), creado por Jaime Aza. Guías en español: https://keyduelo.jato.run/es
