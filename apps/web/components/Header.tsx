@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import { REPO_URL } from '@/lib/seo/site';
 import { useSound } from '@/lib/sound/SoundProvider';
 import {
   KLIQ_SOUND_TYPES,
@@ -34,9 +35,26 @@ export function Header() {
           <NavLink href="/play" label="multi" />
           <SoundSwitcher />
           <ThemeSwitcher />
+          <StarLink />
         </div>
       </nav>
     </header>
+  );
+}
+
+// Keyduelo is open source: the header always invites a GitHub star.
+function StarLink() {
+  return (
+    <a
+      href={REPO_URL}
+      target="_blank"
+      rel="noopener"
+      aria-label="Star keyduelo on GitHub"
+      className="flex items-center gap-1.5 text-main transition-opacity hover:opacity-80"
+    >
+      <span aria-hidden="true">★</span>
+      <span className="hidden sm:inline">star</span>
+    </a>
   );
 }
 
