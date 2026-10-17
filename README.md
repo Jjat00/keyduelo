@@ -3,7 +3,7 @@
 > Carrera de tipeo multijugador en tiempo real, inspirada en [Monkeytype](https://monkeytype.com). Creá una sala pública, invitá a tus amigos por link y competí por el WPM más alto sobre el mismo texto — o entrá como espectador a cualquier sala activa y mirá la carrera en vivo.
 
 **🟢 Demo en vivo:** https://keyduelo.jato.run
-**📦 Repo:** https://github.com/Jjat00/keyduelo
+**📦 Repo:** https://github.com/Jjat00/keyduelo · si te sirve, [dale una ⭐ en GitHub](https://github.com/Jjat00/keyduelo)
 
 ---
 
@@ -45,9 +45,15 @@
 - 🎨 **5 temas** — dracula (default), warm-dark, warm-light, nord, gruvbox-dark. Cambio en vivo + persistencia local.
 - 🔊 **Sonidos de teclas** — **7 perfiles de switches reales** (KAT, Cherry, MT3, XDA, OEM, SA, DSA) tomados de [kliq](https://github.com/crafter-station/kliq) (MIT), con **OEM por defecto**; más 3 sintetizados con Web Audio API (click/mech/pop, sin descargas) como alternativa liviana, y `off` para silenciar. Cada perfil es un audio sprite que se descarga on-demand (~200 KB) y reproduce el sample de press y release de cada tecla, con pitch aleatorio por keystroke y paneo estéreo según la posición de la tecla. Errores suenan con pitch más bajo para feedback audible.
 - 📜 **Texto que scrollea** — el caret se ancla en la segunda línea del viewport y el texto fluye estilo Monkeytype, con fade en bordes.
+- ⭐ **Enlace «star» en la cabecera** hacia el repo en GitHub, visible en todas las páginas.
 - ✨ **Transiciones suaves** — fade entre lobby ↔ countdown ↔ race ↔ results.
 - ♻️ **Estado autoritativo en el server** — el texto, el reloj y el ranking los decide el Durable Object, no el cliente. Imposible hacer trampa cambiando el reloj local.
 - 🧱 **Time mode sincronizado** — en multiplayer, el countdown se ancla al `raceStartedAt` del server (no al primer keystroke local), así todos los participantes terminan al mismo wall-clock instant.
+
+### SEO / GEO
+- 📚 **Guías indexables en inglés y español** — `/typing-test`, `/multiplayer-typing-race`, `/wpm`, `/compare`, `/about` y sus gemelas en `/es/...` (hub en `/es`), enlazadas desde el footer. La pantalla `/` no cambia de aspecto (solo un `<h1>` invisible).
+- 🧭 **Metadata completa** — canonical, hreflang EN/ES, Open Graph y Twitter con la tarjeta social de marca, JSON-LD (`WebSite`, `WebApplication`, `Article`, `FAQPage`, `HowTo`), `robots.ts`, `sitemap.ts`, `manifest.ts` y `noindex` en las salas efímeras.
+- 🤖 **`llms.txt` y `llms-full.txt`** en `public/` como contexto para asistentes de IA.
 
 ### Atajos de teclado
 
@@ -165,7 +171,7 @@ Server → Cliente:
 | Backend realtime | **Cloudflare Workers** + **Durable Objects** (Room + RoomRegistry) | WebSockets nativos en el edge, una instancia consistente por sala + lista global |
 | Persistencia DO | **SQLite-backed** (`new_sqlite_classes`) + `ctx.storage.put` | Backend moderno y barato; room state ephemeral pero sobrevive hibernación |
 | WebSocket | **Hibernation API** (`ctx.acceptWebSocket`) | Conexiones sobreviven hibernación del DO sin reconectar |
-| Audio | **Web Audio API** (oscillators, noise, BiquadFilter) | Sonidos sintetizados en runtime, sin distribuir samples |
+| Audio | **Web Audio API**: audio sprites grabados de [kliq](https://github.com/crafter-station/kliq) (MIT) + synths (oscillators, noise, BiquadFilter) | 7 switches reales descargados bajo demanda; synths como alternativa sin descargas |
 | Monorepo | **Turborepo** + **pnpm workspaces** | Tipos compartidos entre web y worker sin duplicación |
 | Hosting web | **Vercel** | Compat 1:1 con Next.js 16, preview URLs por PR, auto-deploy desde GitHub |
 | Hosting worker | **Cloudflare Workers Builds** | Edge global, free tier generoso, auto-deploy desde GitHub |
@@ -179,18 +185,23 @@ keyduelo/
 ├── apps/
 │   ├── web/                    # Next.js 16 client (Vercel)
 │   │   ├── app/
-│   │   │   ├── layout.tsx      # Root: ThemeProvider + Header + Footer + no-flash script
+│   │   │   ├── layout.tsx      # Root: providers + Header + Footer + no-flash script + metadata/JSON-LD
 │   │   │   ├── globals.css     # CSS vars por tema, scroller, caret animation
-│   │   │   ├── icon.png        # Favicon (detectado por convención de Next.js)
-│   │   │   ├── apple-icon.png  # iOS home-screen icon
+│   │   │   ├── favicon.ico, icon.png, apple-icon.png  # Iconos de marca (convención de Next.js)
+│   │   │   ├── robots.ts, sitemap.ts, manifest.ts     # SEO técnico
 │   │   │   ├── page.tsx        # Solo-practice (/)
+│   │   │   ├── typing-test/, multiplayer-typing-race/, wpm/, compare/, about/  # Guías EN
+│   │   │   ├── es/             # Hub y guías en español
 │   │   │   └── play/
+│   │   │       ├── layout.tsx  # Metadata del lobby
 │   │   │       ├── page.tsx    # Lobby público con lista de salas activas (/play)
 │   │   │       └── [code]/
+│   │   │           ├── layout.tsx # noindex para salas efímeras
 │   │   │           └── page.tsx # Sala multijugador (/play/XXXXX) con branch por rol
 │   │   ├── components/
-│   │   │   ├── Header.tsx      # Nav global + theme switcher + sound switcher
-│   │   │   ├── Footer.tsx      # Link al repo en GitHub
+│   │   │   ├── Header.tsx      # Nav global + theme switcher + sound switcher + enlace ★ star
+│   │   │   ├── Footer.tsx      # Enlaces a las guías, crédito a kliq y link al repo en GitHub
+│   │   │   ├── seo/            # ContentPage, Prose y JsonLd para las guías
 │   │   │   ├── ConfigBar.tsx   # Bar de config (controlled opcional para host driven)
 │   │   │   ├── HostControls.tsx # Config editable + start + kick por peer (solo host)
 │   │   │   ├── CopyButton.tsx  # Copy a portapapeles con fallback execCommand
@@ -222,7 +233,11 @@ keyduelo/
 │   │   │   ├── storage/
 │   │   │   │   ├── nickname.ts        # localStorage helper + generateGuestNickname
 │   │   │   │   └── hostId.ts          # hostToken por código
+│   │   │   ├── seo/                   # site.ts (URL canónica, autor), pages.ts (registro EN/ES), jsonld.ts
 │   │   │   └── config.ts              # WORKER_WS_URL + WORKER_HTTP_URL desde env
+│   │   ├── public/             # sounds/ (sprites de kliq), opengraph-image.png, llms.txt
+│   │   ├── assets/             # Logo y fuentes Geist Mono para generar iconos y tarjeta social
+│   │   ├── scripts/og-image.py # Regenera favicon, iconos y tarjeta social (Pillow)
 │   │   └── eslint.config.mjs
 │   └── worker/                 # Cloudflare Worker (CF)
 │       ├── src/
@@ -289,11 +304,13 @@ El cliente apunta automáticamente a `ws://localhost:8787` cuando no hay env var
 
 ### Web (`apps/web`)
 
-Crea `apps/web/.env.local` (existe `.env.local.example` como plantilla):
+Crea `apps/web/.env.local` (opcional en local; no hay archivo de ejemplo):
 
 ```bash
 # WebSocket URL al worker. Default si está vacío: ws://localhost:8787
 NEXT_PUBLIC_WORKER_WS_URL=ws://localhost:8787
+# Origen canónico para metadata, sitemap y JSON-LD. Default: https://keyduelo.jato.run
+NEXT_PUBLIC_SITE_URL=https://keyduelo.jato.run
 ```
 
 El cliente **deriva automáticamente** la URL HTTP del worker (`WORKER_HTTP_URL`) cambiando `ws://` por `http://` / `wss://` por `https://` — usada por el polling del lobby a `/rooms`. No hace falta una segunda env var.
@@ -397,6 +414,7 @@ curl https://monkey-type-worker.<tu-subdominio>.workers.dev/rooms
 | 4 | Polish visual (theme switcher, header global, transiciones, scrolling text) | ✅ |
 | 5 | Despliegue a producción (Cloudflare + Vercel) con auto-deploy | ✅ |
 | 6 | Salas públicas con admin model (RoomRegistry DO, spectators, live config, host kick/start, optional nickname, rebrand a keyduelo, favicon) | ✅ |
+| 7 | SEO/GEO (guías EN/ES, metadata, JSON-LD, sitemap, llms.txt), logo y tarjeta social de marca, sonidos grabados de kliq, dominio `keyduelo.jato.run` y enlace ★ star | ✅ |
 
 ---
 

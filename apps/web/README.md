@@ -8,17 +8,24 @@ Frontend Next.js 16 de [`keyduelo`](../../README.md). App Router, React 19, Tail
 
 ```
 app/
-  layout.tsx            # ThemeProvider + SettingsProvider + SoundProvider + Header + Footer
+  layout.tsx            # ThemeProvider + SettingsProvider + SoundProvider + Header + Footer + metadata/JSON-LD
   globals.css           # CSS vars por tema, scroller, caret animation
-  icon.png              # Favicon (convención Next.js, auto-detectado)
+  favicon.ico           # Favicon de marca (convención Next.js)
+  icon.png              # Icono 256 (convención Next.js, auto-detectado)
   apple-icon.png        # iOS home-screen icon (convención Next.js)
+  robots.ts sitemap.ts manifest.ts
   page.tsx              # Solo-practice (/)
+  typing-test/ multiplayer-typing-race/ wpm/ compare/ about/   # Guías EN
+  es/                   # Hub /es y guías en español
   play/
+    layout.tsx          # Metadata del lobby
     page.tsx            # Lobby público con lista de salas (/play)
+    [code]/layout.tsx   # noindex para salas efímeras
     [code]/page.tsx     # Sala multijugador (/play/XXXXX), branch por rol
 components/
-  Header.tsx            # Nav global + theme switcher + sound switcher
-  Footer.tsx            # Link al repo GitHub (server component)
+  Header.tsx            # Nav global + theme switcher + sound switcher + enlace ★ star al repo
+  Footer.tsx            # Guías, crédito a kliq y link al repo GitHub (server component)
+  seo/                  # ContentPage, Prose y JsonLd
   ConfigBar.tsx         # Config editable; acepta value/onChange opcional (host-driven)
   HostControls.tsx      # Admin-only: ConfigBar + start + kick por peer + ready indicator
   CopyButton.tsx        # Copy a clipboard con fallback execCommand
@@ -66,11 +73,12 @@ pnpm --filter @monkey-type/web lint   # ESLint
 
 ## Variables de entorno
 
-Crea `.env.local` (existe `.env.local.example` como plantilla):
+Crea `.env.local` si necesitas cambiar los valores por defecto (no hay archivo de ejemplo):
 
 ```bash
-NEXT_PUBLIC_WORKER_WS_URL=ws://localhost:8787      # dev
+NEXT_PUBLIC_WORKER_WS_URL=ws://localhost:8787      # dev (default)
 # NEXT_PUBLIC_WORKER_WS_URL=wss://...workers.dev   # prod
+NEXT_PUBLIC_SITE_URL=https://keyduelo.jato.run     # origen canónico (default)
 ```
 
 `NEXT_PUBLIC_*` se inlinea al bundle del cliente en build-time. Si la cambias, hay que rebuildear.
@@ -118,7 +126,7 @@ NEXT_PUBLIC_WORKER_WS_URL=ws://localhost:8787      # dev
 
 ### Layout global
 
-- **Header fijo** (`components/Header.tsx`) overlay sobre el contenido con `bg/90 + backdrop-blur` — no participa del flow.
+- **Header fijo** (`components/Header.tsx`) overlay sobre el contenido con `bg/90 + backdrop-blur` — no participa del flow. Termina con el enlace `★ star` al repo (el texto se oculta en móvil y queda la estrella).
 - **Footer pegado al fondo del viewport** (`components/Footer.tsx`) gracias a que el body es `min-h-dvh flex flex-col` y el `<main>` de cada página usa `flex-1`. Link al repo en GitHub (`https://github.com/Jjat00/keyduelo`).
 - **Favicon**: `app/icon.png` + `app/apple-icon.png` detectados por convención de Next.js 16 — no hace falta `<link>` manual en el layout.
 
