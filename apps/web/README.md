@@ -78,7 +78,7 @@ Crea `.env.local` si necesitas cambiar los valores por defecto (no hay archivo d
 ```bash
 NEXT_PUBLIC_WORKER_WS_URL=ws://localhost:8787      # dev (default)
 # NEXT_PUBLIC_WORKER_WS_URL=wss://...workers.dev   # prod
-NEXT_PUBLIC_SITE_URL=https://keyduelo.jato.run     # origen canónico (default)
+NEXT_PUBLIC_SITE_URL=https://keyduelo.jjato.com     # origen canónico (default)
 ```
 
 `NEXT_PUBLIC_*` se inlinea al bundle del cliente en build-time. Si la cambias, hay que rebuildear.

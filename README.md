@@ -2,7 +2,7 @@
 
 > Carrera de tipeo multijugador en tiempo real, inspirada en [Monkeytype](https://monkeytype.com). Creá una sala pública, invitá a tus amigos por link y competí por el WPM más alto sobre el mismo texto — o entrá como espectador a cualquier sala activa y mirá la carrera en vivo.
 
-**🟢 Demo en vivo:** https://keyduelo.jato.run
+**🟢 Demo en vivo:** https://keyduelo.jjato.com
 **📦 Repo:** https://github.com/Jjat00/keyduelo · si te sirve, [dale una ⭐ en GitHub](https://github.com/Jjat00/keyduelo)
 
 ---
@@ -309,8 +309,8 @@ Crea `apps/web/.env.local` (opcional en local; no hay archivo de ejemplo):
 ```bash
 # WebSocket URL al worker. Default si está vacío: ws://localhost:8787
 NEXT_PUBLIC_WORKER_WS_URL=ws://localhost:8787
-# Origen canónico para metadata, sitemap y JSON-LD. Default: https://keyduelo.jato.run
-NEXT_PUBLIC_SITE_URL=https://keyduelo.jato.run
+# Origen canónico para metadata, sitemap y JSON-LD. Default: https://keyduelo.jjato.com
+NEXT_PUBLIC_SITE_URL=https://keyduelo.jjato.com
 ```
 
 El cliente **deriva automáticamente** la URL HTTP del worker (`WORKER_HTTP_URL`) cambiando `ws://` por `http://` / `wss://` por `https://` — usada por el polling del lobby a `/rooms`. No hace falta una segunda env var.
@@ -414,7 +414,7 @@ curl https://monkey-type-worker.<tu-subdominio>.workers.dev/rooms
 | 4 | Polish visual (theme switcher, header global, transiciones, scrolling text) | ✅ |
 | 5 | Despliegue a producción (Cloudflare + Vercel) con auto-deploy | ✅ |
 | 6 | Salas públicas con admin model (RoomRegistry DO, spectators, live config, host kick/start, optional nickname, rebrand a keyduelo, favicon) | ✅ |
-| 7 | SEO/GEO (guías EN/ES, metadata, JSON-LD, sitemap, llms.txt), logo y tarjeta social de marca, sonidos grabados de kliq, dominio `keyduelo.jato.run` y enlace ★ star | ✅ |
+| 7 | SEO/GEO (guías EN/ES, metadata, JSON-LD, sitemap, llms.txt), logo y tarjeta social de marca, sonidos grabados de kliq, dominio `keyduelo.jjato.com` y enlace ★ star | ✅ |
 
 ---
 

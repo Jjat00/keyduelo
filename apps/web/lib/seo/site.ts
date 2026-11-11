@@ -6,7 +6,7 @@
  * robots and JSON-LD all derive absolute URLs from here.
  */
 export const SITE_URL: string = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://keyduelo.jato.run'
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://keyduelo.jjato.com'
 ).replace(/\/+$/, '');
 
 export const SITE_NAME = 'keyduelo';
